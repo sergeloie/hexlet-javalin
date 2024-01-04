@@ -18,9 +18,8 @@ import java.util.stream.Collectors;
 public class HelloWorld {
     public static void main(String[] args) {
         // Создаем приложение
-        Javalin app = Javalin.create(config -> {
-            config.plugins.enableDevLogging();
-        });
+        Javalin app = Javalin.create(config -> config.plugins.enableDevLogging());
+
         Course course1 = new Course(1L,"Java", "Super Java Course");
         Course course2 = new Course(2L,"PHP", "some php course");
         Course course3 = new Course(3L,"JS", "Shtako JavaScript course");
@@ -34,7 +33,7 @@ public class HelloWorld {
         });
 
         app.get("/courses/", ctx -> {
-           String header = "Programming courses";
+
            var term = ctx.queryParam("term");
             ArrayList<Course> displayedCourses;
            if (term != null) {
