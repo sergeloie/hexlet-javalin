@@ -22,7 +22,9 @@
 
 @template.layout.index(content = @`
     <form action="/courses" method="get">
-        <input type="search" required name="term" value="${page.getTerm()}">
+        <label>
+            <input type="search" required name="term" value="${page.getTerm()}">
+        </label>
         <input type="submit" value="Искать">
     </form>
     @if(page.getCourses().isEmpty())

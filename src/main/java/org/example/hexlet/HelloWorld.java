@@ -1,14 +1,14 @@
 package org.example.hexlet;
 
 import io.javalin.Javalin;
-import io.javalin.validation.Validator;
+
 import org.apache.commons.lang3.StringUtils;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.model.Course;
 
 import org.apache.commons.text.StringEscapeUtils;
-import org.owasp.html.HtmlPolicyBuilder;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
