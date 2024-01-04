@@ -11,5 +11,5 @@ import java.util.List;
 @Getter
 public class CoursesPage {
     private List<Course> courses;
-    private String header;
+    private String term;
 }
