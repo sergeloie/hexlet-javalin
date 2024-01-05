@@ -85,7 +85,7 @@ public class HelloWorld {
 
         app.post("/users", ctx -> {
             String name = ctx.formParam("name");
-            String email = ctx.formParam("email");
+            String email = ctx.formParam("email").trim().toLowerCase();
             String password = ctx.formParam("password");
             String passwordConfirmation = ctx.formParam("passwordConfirmation");
 
