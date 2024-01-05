@@ -2,7 +2,6 @@ package org.example.hexlet;
 
 import io.javalin.Javalin;
 
-import org.apache.commons.lang3.StringUtils;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.users.UsersPage;
@@ -14,10 +13,8 @@ import org.example.hexlet.repository.CourseRepository;
 import org.example.hexlet.repository.UserRepository;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -61,9 +58,7 @@ public class HelloWorld {
             ctx.render("users/index.jte", Collections.singletonMap("page", page));
         });
 
-        app.get("/courses/build", ctx -> {
-            ctx.render("courses/build.jte");
-        });
+        app.get("/courses/build", ctx -> ctx.render("courses/build.jte"));
 
         app.get("/courses/{id}", ctx -> {
             Long id = ctx.pathParamAsClass("id", Long.class).get();
@@ -77,9 +72,7 @@ public class HelloWorld {
 //           ctx.result("User ID: " + userID);
 //        });
 
-        app.get("/users/build", ctx -> {
-            ctx.render("users/build.jte");
-        });
+        app.get("/users/build", ctx -> ctx.render("users/build.jte"));
 
 
 
