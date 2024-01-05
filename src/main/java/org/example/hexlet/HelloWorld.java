@@ -5,9 +5,13 @@ import io.javalin.Javalin;
 import org.apache.commons.lang3.StringUtils;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
+import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
 
 import org.apache.commons.text.StringEscapeUtils;
+import org.example.hexlet.model.User;
+import org.example.hexlet.repository.CourseRepository;
+import org.example.hexlet.repository.UserRepository;
 
 
 import java.util.ArrayList;
@@ -32,19 +36,33 @@ public class HelloWorld {
             ctx.result(String.format("Hello, %s", name));
         });
 
-        app.get("/courses/", ctx -> {
+//        app.get("/courses/", ctx -> {
+//
+//            String term = ctx.queryParam("term");
+//            ArrayList<Course> displayedCourses;
+//           if (term != null) {
+//               displayedCourses = courses.stream()
+//                       .filter(x -> StringUtils.containsIgnoreCase(x.getDescription(), term))
+//                       .collect(Collectors.toCollection(ArrayList::new));
+//           } else {
+//               displayedCourses = new ArrayList<>(courses);
+//           }
+//           CoursesPage page = new CoursesPage(displayedCourses, term);
+//           ctx.render("courses/index.jte", Collections.singletonMap("page", page));
+//        });
 
-           var term = ctx.queryParam("term");
-            ArrayList<Course> displayedCourses;
-           if (term != null) {
-               displayedCourses = courses.stream()
-                       .filter(x -> StringUtils.containsIgnoreCase(x.getDescription(), term))
-                       .collect(Collectors.toCollection(ArrayList::new));
-           } else {
-               displayedCourses = new ArrayList<>(courses);
-           }
-           CoursesPage page = new CoursesPage(displayedCourses, term);
-           ctx.render("courses/index.jte", Collections.singletonMap("page", page));
+        app.get("/courses/", ctx -> {
+            CoursesPage page = new CoursesPage(CourseRepository.getEntities(), null);
+            ctx.render("courses/index.jte", Collections.singletonMap("page", page));
+        });
+
+        app.get("/users", ctx -> {
+            UsersPage page = new UsersPage(UserRepository.getEntities());
+            ctx.render("users/index.jte", Collections.singletonMap("page", page));
+        });
+
+        app.get("/courses/build", ctx -> {
+            ctx.render("courses/build.jte");
         });
 
         app.get("/courses/{id}", ctx -> {
@@ -59,12 +77,41 @@ public class HelloWorld {
 //           ctx.result("User ID: " + userID);
 //        });
 
+        app.get("/users/build", ctx -> {
+            ctx.render("users/build.jte");
+        });
+
+
+
         app.get("/users/{id}", ctx -> {
            String id = ctx.pathParam("id");
            String escapedId = StringEscapeUtils.escapeHtml4(id);
            ctx.contentType("text/html");
            ctx.result(escapedId);
         });
+
+        app.post("/users", ctx -> {
+            String name = ctx.formParam("name");
+            String email = ctx.formParam("email");
+            String password = ctx.formParam("password");
+            String passwordConfirmation = ctx.formParam("passwordConfirmation");
+
+            User user = new User(name, email, password);
+            UserRepository.save(user);
+            ctx.redirect("/users");
+        });
+
+        app.post("/courses", ctx -> {
+            String name = ctx.formParam("name");
+            String description = ctx.formParam("description");
+
+            Course course = new Course(CourseRepository.getEntities().size()+1L, name, description);
+            CourseRepository.save(course);
+            ctx.redirect("/courses");
+        });
+
+
+
         app.start(7070); // Стартуем веб-сервер
     }
 }
