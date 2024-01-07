@@ -15,6 +15,9 @@
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Root page</a></li>
         <li class="nav-item"><a href="/courses" class="nav-link">All Courses</a></li>
+        <li class="nav-item"><a href="/users" class="nav-link">All Users</a></li>
+        <li class="nav-item"><a href="/courses/build" class="nav-link">Build Course</a></li>
+        <li class="nav-item"><a href="/users/build" class="nav-link">Build Users</a></li>
     </ul>
 </header>
 ${content}
