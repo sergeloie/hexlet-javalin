@@ -25,13 +25,14 @@ repositories {
 
 dependencies {
     implementation ("org.apache.commons:commons-lang3:3.14.0")
-    implementation("com.google.guava:guava:33.0.0-jre")
-    implementation("org.apache.commons:commons-text:1.11.0")
-    implementation("com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1")
 
-    implementation("com.github.javafaker:javafaker:1.0.2")
+    implementation("org.apache.commons:commons-text:1.11.0")
+
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
 
+    implementation("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    implementation("io.freefair.gradle:lombok-plugin:8.4")
 
 
 
