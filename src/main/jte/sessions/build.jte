@@ -2,8 +2,12 @@
 
 @template.layout.index(content = @`
     <form action="${NamedRoutes.SESSIONS}" method="post">
-        <input type="text" placeholder="Nickname" name="nickname">
-        <input type="password" placeholder="Password" name="password">
+        <label>
+            <input type="text" placeholder="Nickname" name="nickname">
+        </label>
+        <label>
+            <input type="password" placeholder="Password" name="password">
+        </label>
         <input type="submit">
     </form>
 `)
