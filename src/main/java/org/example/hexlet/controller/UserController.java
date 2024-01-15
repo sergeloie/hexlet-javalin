@@ -17,6 +17,7 @@ public class UserController {
 
     public static void index(Context context) {
         UsersPage page = new UsersPage(UserRepository.getEntities());
+        page.setFlash(context.consumeSessionAttribute("flash"));
         context.render("users/index.jte", Collections.singletonMap("page", page));
     }
 
@@ -45,9 +46,11 @@ public class UserController {
                     .get();
             User user = new User(name, email, password);
             UserRepository.save(user);
+            context.sessionAttribute("flash", "Success. User has been created!");
             context.redirect(NamedRoutes.USERS);
         } catch (ValidationException e) {
             BuildUserPage page = new BuildUserPage(name, email, e.getErrors());
+            page.setFlash("Warning. User has not been saved!");
             context.render("users/build.jte", Collections.singletonMap("page", page));
         }
     }

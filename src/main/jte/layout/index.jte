@@ -28,7 +28,11 @@
 </header>
 <div>
     @if(page !=null && page.getFlash() != null)
-        <p>${page.getFlash()}</p>
+        @if(page.getFlash().startsWith("Warning"))
+            <p class="alert alert-danger" role="alert">${page.getFlash()}</p>
+        @else
+            <p class="alert alert-success" role="alert">${page.getFlash()}</p>
+            @endif
     @endif
 </div>
 ${content}

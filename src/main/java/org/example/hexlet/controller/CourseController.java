@@ -39,8 +39,6 @@ public class CourseController {
 
         String name = context.formParamAsClass("name", String.class).get();
         String description = context.formParamAsClass("description", String.class).get();
-//        Validator<String> validateName = context.formParamAsClass("name", String.class);
-//        Validator<String> validateDescription = context.formParamAsClass("description", String.class);
 
         try {
             name = context.formParamAsClass("name", String.class)
@@ -51,12 +49,11 @@ public class CourseController {
                     .get();
             Course course = new Course(CourseRepository.getEntities().size() + 1L, name, description);
             CourseRepository.save(course);
-            context.sessionAttribute("flash", "Course has been created!");
+            context.sessionAttribute("flash", "Success. Course has been created!");
             context.redirect(NamedRoutes.COURSES);
         } catch (ValidationException e) {
             BuildCoursePage page = new BuildCoursePage(name, description, e.getErrors());
-            page.setFlash("Course has not been saves!");
-//            context.sessionAttribute("flash", "Course has not been saves!");
+            page.setFlash("Warning. Course has not been saved!");
             context.render("courses/build.jte", Collections.singletonMap("page", page));
         }
     }

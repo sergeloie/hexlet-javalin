@@ -2,6 +2,7 @@
 @param BuildUserPage page
 
 @template.layout.index(
+page = page,
 content = @`
     @if(page.getErrors() != null)
         <ul>
