@@ -1,7 +1,9 @@
 @import org.example.hexlet.util.NamedRoutes
 @import org.example.hexlet.util.ResourceRoutes
+@import org.example.hexlet.dto.BasePage
 @import gg.jte.Content
 @param Content content
+@param BasePage page = null
 
 <!doctype html>
 <html lang="en">
@@ -24,6 +26,11 @@
         <li class="nav-item"><a href="${NamedRoutes.SESSIONS_BUILD}" class="nav-link">Build Session (Login)</a></li>
     </ul>
 </header>
+<div>
+    @if(page !=null && page.getFlash() != null)
+        <p>${page.getFlash()}</p>
+    @endif
+</div>
 ${content}
 <footer class="footer fixed-bottom d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">

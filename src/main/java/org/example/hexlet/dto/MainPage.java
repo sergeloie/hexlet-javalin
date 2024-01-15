@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class MainPage {
+public class MainPage extends BasePage{
     private Boolean visited;
 }

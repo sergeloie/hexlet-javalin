@@ -3,11 +3,13 @@ package org.example.hexlet.controller;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.validation.ValidationException;
+import io.javalin.validation.Validator;
 import org.example.hexlet.dto.courses.BuildCoursePage;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.repository.CourseRepository;
+import org.example.hexlet.util.NamedRoutes;
 
 import java.util.Collections;
 
@@ -15,11 +17,13 @@ public class CourseController {
 
     public static void index(Context context) {
         CoursesPage page = new CoursesPage(CourseRepository.getEntities(), null);
+        page.setFlash(context.consumeSessionAttribute("flash"));
         context.render("courses/index.jte", Collections.singletonMap("page", page));
     }
 
     public static void build(Context context) {
         BuildCoursePage page = new BuildCoursePage();
+
         context.render("courses/build.jte", Collections.singletonMap("page", page));
     }
 
@@ -32,8 +36,11 @@ public class CourseController {
     }
 
     public static void create(Context context) {
-        String name = null;
-        String description = null;
+
+        String name = context.formParamAsClass("name", String.class).get();
+        String description = context.formParamAsClass("description", String.class).get();
+//        Validator<String> validateName = context.formParamAsClass("name", String.class);
+//        Validator<String> validateDescription = context.formParamAsClass("description", String.class);
 
         try {
             name = context.formParamAsClass("name", String.class)
@@ -44,9 +51,12 @@ public class CourseController {
                     .get();
             Course course = new Course(CourseRepository.getEntities().size() + 1L, name, description);
             CourseRepository.save(course);
-            context.redirect("/courses");
+            context.sessionAttribute("flash", "Course has been created!");
+            context.redirect(NamedRoutes.COURSES);
         } catch (ValidationException e) {
             BuildCoursePage page = new BuildCoursePage(name, description, e.getErrors());
+            page.setFlash("Course has not been saves!");
+//            context.sessionAttribute("flash", "Course has not been saves!");
             context.render("courses/build.jte", Collections.singletonMap("page", page));
         }
     }

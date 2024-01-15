@@ -8,8 +8,8 @@ import java.util.Collections;
 public class RootController {
 
     public static void index(Context context) {
-        var visited = Boolean.valueOf(context.cookie("visited"));
-        var page = new MainPage(visited);
+        Boolean visited = Boolean.valueOf(context.cookie("visited"));
+        MainPage page = new MainPage(visited);
         context.render("index.jte", Collections.singletonMap("page", page));
         context.cookie("visited", String.valueOf(true));
     }

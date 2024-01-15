@@ -3,7 +3,9 @@
 
 
 
-@template.layout.index(content = @`
+@template.layout.index(
+page = page,
+content = @`
     @if(page.getErrors() != null)
         <ul>
             @for(var validator : page.getErrors().values())

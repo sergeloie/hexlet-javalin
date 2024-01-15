@@ -13,7 +13,7 @@ public class SessionsController {
     }
 
     public static void create(Context context) {
-        var nickname = context.formParam("nickname");
+        String nickname = context.formParam("nickname");
         context.sessionAttribute("currentUser", nickname);
         context.redirect(NamedRoutes.ROOT);
     }
@@ -24,7 +24,7 @@ public class SessionsController {
     }
 
     public static void show(Context context) {
-        var page = new SessionPage(context.sessionAttribute("currentUser"));
+        SessionPage page = new SessionPage(context.sessionAttribute("currentUser"));
         context.render("sessions/show.jte", Collections.singletonMap("page", page));
     }
 }

@@ -8,6 +8,7 @@ import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.User;
 import org.example.hexlet.repository.UserRepository;
+import org.example.hexlet.util.NamedRoutes;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -44,14 +45,11 @@ public class UserController {
                     .get();
             User user = new User(name, email, password);
             UserRepository.save(user);
-            context.redirect("/users");
+            context.redirect(NamedRoutes.USERS);
         } catch (ValidationException e) {
             BuildUserPage page = new BuildUserPage(name, email, e.getErrors());
             context.render("users/build.jte", Collections.singletonMap("page", page));
         }
     }
-
-
-
 }
 
