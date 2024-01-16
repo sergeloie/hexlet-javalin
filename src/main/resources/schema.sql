@@ -1,16 +1,16 @@
-drop table if exists courses;
+DROP TABLE IF EXISTS courses;
 
-create table courses (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    description text
+CREATE TABLE courses (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(255) NOT NULL,
+    DESCRIPTION TEXT
 );
 
-drop table if exists users;
+DROP TABLE IF EXISTS users;
 
-create table users (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    email varchar(255) not null,
-    password varchar(255) not null
+CREATE TABLE users (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(255) NOT NULL,
+    EMAIL VARCHAR(255) NOT NULL,
+    PASSWORD VARCHAR(255) NOT NULL
 );

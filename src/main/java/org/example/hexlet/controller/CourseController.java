@@ -11,11 +11,12 @@ import org.example.hexlet.model.Course;
 import org.example.hexlet.repository.CourseRepository;
 import org.example.hexlet.util.NamedRoutes;
 
+import java.sql.SQLException;
 import java.util.Collections;
 
 public class CourseController {
 
-    public static void index(Context context) {
+    public static void index(Context context) throws SQLException{
         CoursesPage page = new CoursesPage(CourseRepository.getEntities(), null);
         page.setFlash(context.consumeSessionAttribute("flash"));
         context.render("courses/index.jte", Collections.singletonMap("page", page));
@@ -27,7 +28,7 @@ public class CourseController {
         context.render("courses/build.jte", Collections.singletonMap("page", page));
     }
 
-    public static void show(Context context) {
+    public static void show(Context context) throws SQLException {
         Long id = context.pathParamAsClass("id", Long.class).get();
         Course course = CourseRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Course with ID: " + id + " not found"));
@@ -35,7 +36,7 @@ public class CourseController {
         context.render("courses/show.jte", Collections.singletonMap("page", page));
     }
 
-    public static void create(Context context) {
+    public static void create(Context context) throws SQLException {
 
         String name = context.formParamAsClass("name", String.class).get();
         String description = context.formParamAsClass("description", String.class).get();
