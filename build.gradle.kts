@@ -34,12 +34,13 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("io.freefair.gradle:lombok-plugin:8.4")
 
-
-
     implementation("io.javalin:javalin:5.6.3")
     implementation("org.slf4j:slf4j-simple:2.1.0-alpha1")
     implementation("io.javalin:javalin-rendering:5.6.3")
     implementation("gg.jte:jte:3.1.6")
+
+    implementation("com.h2database:h2:2.2.220")
+    implementation("com.zaxxer:HikariCP:5.0.1")
 
     testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
