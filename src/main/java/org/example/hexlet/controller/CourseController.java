@@ -3,7 +3,6 @@ package org.example.hexlet.controller;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.validation.ValidationException;
-import io.javalin.validation.Validator;
 import org.example.hexlet.dto.courses.BuildCoursePage;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
@@ -16,7 +15,7 @@ import java.util.Collections;
 
 public class CourseController {
 
-    public static void index(Context context) throws SQLException{
+    public static void index(Context context) throws SQLException {
         CoursesPage page = new CoursesPage(CourseRepository.getEntities(), null);
         page.setFlash(context.consumeSessionAttribute("flash"));
         context.render("courses/index.jte", Collections.singletonMap("page", page));

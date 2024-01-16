@@ -10,12 +10,13 @@ import org.example.hexlet.model.User;
 import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.util.NamedRoutes;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Objects;
 
 public class UserController {
 
-    public static void index(Context context) {
+    public static void index(Context context) throws SQLException {
         UsersPage page = new UsersPage(UserRepository.getEntities());
         page.setFlash(context.consumeSessionAttribute("flash"));
         context.render("users/index.jte", Collections.singletonMap("page", page));
@@ -26,7 +27,7 @@ public class UserController {
         context.render("users/build.jte", Collections.singletonMap("page", page));
     }
 
-    public static void show(Context context) {
+    public static void show(Context context) throws SQLException {
         Long id = context.pathParamAsClass("id", Long.class).get();
 
         User user = UserRepository.find(id).
@@ -35,7 +36,7 @@ public class UserController {
         context.render("users/show.jte", Collections.singletonMap("page", page));
     }
 
-    public static void create(Context context) {
+    public static void create(Context context) throws SQLException {
         String name = context.formParam("name");
         String email = Objects.requireNonNull(context.formParam("email")).trim().toLowerCase();
 

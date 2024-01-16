@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SessionPage extends BasePage{
+public class SessionPage extends BasePage {
     private String currentUser;
 }
