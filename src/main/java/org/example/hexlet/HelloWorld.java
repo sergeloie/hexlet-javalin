@@ -11,8 +11,7 @@ import org.example.hexlet.controller.UserController;
 import org.example.hexlet.repository.BaseRepository;
 import org.example.hexlet.util.NamedRoutes;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -52,10 +51,16 @@ public class HelloWorld {
         hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1");
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-        URL url = HelloWorld.class.getClassLoader().getResource("schema.sql");
-        File file = new File(url.getFile());
-        String sql = Files.lines(file.toPath())
+//        URL url = HelloWorld.class.getClassLoader().getResource("schema.sql");
+//        File file = new File(url.getFile());
+//        String sql = Files.lines(file.toPath())
+//                .collect(Collectors.joining("\n"));
+
+        InputStream is = HelloWorld.class.getClassLoader().getResourceAsStream("schema.sql");
+        String sql = new BufferedReader(new InputStreamReader(is))
+                .lines()
                 .collect(Collectors.joining("\n"));
+
 
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
